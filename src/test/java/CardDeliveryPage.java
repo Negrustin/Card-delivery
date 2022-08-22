@@ -9,8 +9,11 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class CardDeliveryPage {
     private  static final SelenideElement cityInput = $x("//*[@data-test-id = 'city']//input");
-    private static final SelenideElement dateInput = $x("//*[@data-test-id = 'date']//input");
-    String strDateInput = "//*[@data-test-id = 'date']//input";
+    private static final  SelenideElement dateInput = $x("//*[@data-test-id = 'date']//input");
+
+
+
+    private static String strDateInput = "//*[@data-test-id = 'date']//input";
     private static final SelenideElement nameInput = $x("//*[@data-test-id = 'name']//input");
     private static final SelenideElement phoneInput = $x("//*[@data-test-id = 'phone']//input");
     private static final SelenideElement acceptCheckBox = $x("//*[@data-test-id = 'agreement']");
@@ -18,10 +21,7 @@ public class CardDeliveryPage {
 
     private LocalDate date = LocalDate.now();
     private DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-    String dateString = date.plusDays(7).format(formatters).toString();
-
-
-
+//    String dateString = date.plusDays(7).format(formatters).toString();
 
     public CardDeliveryPage(String url) {
         Selenide.open(url);
@@ -40,7 +40,7 @@ public class CardDeliveryPage {
         setValueToObject(cityInput,city);
     }
     public void addDaysToTheCurrentDate(int daysAfter){
-        String dateString = date.plusDays(daysAfter).format(formatters).toString();
+        String dateString = date.plusDays(daysAfter).format(formatters);
         Selenide.$x(strDateInput)
                 .doubleClick()
                 .sendKeys(Keys.BACK_SPACE);

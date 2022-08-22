@@ -14,7 +14,7 @@ import static com.codeborne.selenide.Selenide.*;
 public class HappyPathTest {
     LocalDate date = LocalDate.now();
     DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-    String dateString = date.plusDays(7).format(formatters).toString();
+    String dateString = date.plusDays(7).format(formatters);
 
 
     private static final String BASE_URL = "http://localhost:9999";
@@ -25,19 +25,20 @@ public class HappyPathTest {
 
     @Test
     void HappyPathTest() {
-       // Configuration.holdBrowserOpen = true;
         CardDeliveryPage deliveryPage = new CardDeliveryPage(BASE_URL);
+        SuccessPage successPage = new SuccessPage();
         deliveryPage.setCity(CITY);
-        deliveryPage.addDaysToTheCurrentDate(5);
+        deliveryPage.addDaysToTheCurrentDate(7);
         deliveryPage.setName(NAME);
         deliveryPage.setPhone(PHONE);
         deliveryPage.clickOnCheckbox();
         deliveryPage.clickOnAcceptButton();
 
-        boolean expected = true;
-        boolean actual = ($x("//*[@data-test-id = 'notification']")
-                .shouldBe(Condition.visible, Duration.ofSeconds(15))
-                .exists());
+
+        String expected = "Успешно!" + "\nВстреча успешно забронирована на " + dateString;
+        String  actual =successPage.getSuccessWindow()
+                .shouldBe(Condition.visible,Duration.ofSeconds(15))
+                .text();
 
         Assertions.assertEquals(expected, actual);
 
