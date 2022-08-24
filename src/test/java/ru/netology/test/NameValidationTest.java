@@ -1,3 +1,6 @@
+package ru.netology.test;
+
+import ru.netology.page.*;
 import com.codeborne.selenide.Condition;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -20,7 +23,6 @@ public class NameValidationTest {
 @Test
 public void emptyValueName(){
     CardDeliveryPage deliveryPage = new CardDeliveryPage(BASE_URL);
-    ErrorMessages errorMessages = new ErrorMessages();
 
     deliveryPage.setCity(CITY);
     deliveryPage.addDaysToTheCurrentDate(7);
@@ -29,10 +31,8 @@ public void emptyValueName(){
     deliveryPage.clickOnCheckbox();
     deliveryPage.clickOnAcceptButton();
 
-    String expected = "Фамилия и имя\nПоле обязательно для заполнения";
-    String actual = errorMessages.getNameInputError()
-            .shouldBe(Condition.visible)
-            .text();
+    String expected = "Поле обязательно для заполнения";
+    String actual = deliveryPage.getNameInputError();
 
     Assertions.assertEquals(expected,actual);
 
@@ -44,7 +44,6 @@ public void emptyValueName(){
 @Test
 public void  setNameUnicodeCyrillicExtension(){
     CardDeliveryPage deliveryPage = new CardDeliveryPage(BASE_URL);
-    SuccessPage successPage = new SuccessPage();
     deliveryPage.setCity(CITY);
     deliveryPage.addDaysToTheCurrentDate(7);
     deliveryPage.setName(NAME);
@@ -52,10 +51,9 @@ public void  setNameUnicodeCyrillicExtension(){
     deliveryPage.clickOnCheckbox();
     deliveryPage.clickOnAcceptButton();
 
-    String expected = "Успешно!" + "\nВстреча успешно забронирована на " + dateString;
-    String  actual =successPage.getSuccessWindow()
-            .shouldBe(Condition.visible, Duration.ofSeconds(15))
-            .text();
+    boolean expected = true;
+    boolean actual = deliveryPage.isASuccess("Встреча успешно забронирована на " + dateString);
+
 
     Assertions.assertEquals(expected, actual);
 
@@ -64,7 +62,6 @@ public void  setNameUnicodeCyrillicExtension(){
     @Test
     public void  setNumericValue(){
         CardDeliveryPage deliveryPage = new CardDeliveryPage(BASE_URL);
-        ErrorMessages errorMessages = new ErrorMessages();
 
         deliveryPage.setCity(CITY);
         deliveryPage.addDaysToTheCurrentDate(7);
@@ -73,10 +70,9 @@ public void  setNameUnicodeCyrillicExtension(){
         deliveryPage.clickOnCheckbox();
         deliveryPage.clickOnAcceptButton();
 
-        String expected = "Фамилия и имя\nИмя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы.";
-        String actual = errorMessages.getNameInputError()
-                .shouldBe(Condition.visible)
-                .text();
+        String expected = "Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы.";
+        String actual = deliveryPage.getNameInputError();
+
 
         Assertions.assertEquals(expected,actual);
 

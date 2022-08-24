@@ -1,3 +1,5 @@
+package ru.netology.page;
+
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 
@@ -14,7 +16,7 @@ public class CalendarInterface {
     private static final SelenideElement nextMonthButton = $x("//div[@data-step = '1']");
     private LocalDate date = LocalDate.now();
 
-    public void choseDayAfter(int dayPlus) {
+    public void daysAdd(int dayPlus) {
         dateInput.click();
         int monthDaysCount = monthElement.size();
         int todayDay = Integer.parseInt(day.text());

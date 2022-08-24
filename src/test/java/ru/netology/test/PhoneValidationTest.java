@@ -1,3 +1,7 @@
+package ru.netology.test;
+
+import ru.netology.page.*;
+
 import com.codeborne.selenide.Condition;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -26,7 +30,6 @@ public class PhoneValidationTest {
     public void setEmptyValue(){
 
         CardDeliveryPage deliveryPage = new CardDeliveryPage(BASE_URL);
-        ErrorMessages errorMessages = new ErrorMessages();
 
         deliveryPage.setCity(CITY);
         deliveryPage.addDaysToTheCurrentDate(7);
@@ -36,9 +39,7 @@ public class PhoneValidationTest {
         deliveryPage.clickOnAcceptButton();
 
         String expected = "Поле обязательно для заполнения";
-        String actual = errorMessages.getPhoneInputError()
-                .shouldBe(Condition.visible)
-                .text();
+        String actual = deliveryPage.getPhoneInputError();
 
         Assertions.assertEquals(expected,actual);
     }
@@ -49,7 +50,6 @@ public class PhoneValidationTest {
 
 
         CardDeliveryPage deliveryPage = new CardDeliveryPage(BASE_URL);
-        ErrorMessages errorMessages = new ErrorMessages();
 
         deliveryPage.setCity(CITY);
         deliveryPage.addDaysToTheCurrentDate(7);
@@ -59,9 +59,7 @@ public class PhoneValidationTest {
         deliveryPage.clickOnAcceptButton();
 
         String expected = "Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.";
-        String actual = errorMessages.getPhoneInputError()
-                .shouldBe(Condition.visible)
-                .text();
+        String actual = deliveryPage.getPhoneInputError();
 
         Assertions.assertEquals(expected,actual);
 
@@ -72,7 +70,7 @@ public class PhoneValidationTest {
 
 
         CardDeliveryPage deliveryPage = new CardDeliveryPage(BASE_URL);
-        ErrorMessages errorMessages = new ErrorMessages();
+
 
         deliveryPage.setCity(CITY);
         deliveryPage.addDaysToTheCurrentDate(7);
@@ -82,9 +80,7 @@ public class PhoneValidationTest {
         deliveryPage.clickOnAcceptButton();
 
         String expected = "Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.";
-        String actual = errorMessages.getPhoneInputError()
-                .shouldBe(Condition.visible)
-                .text();
+        String actual = deliveryPage.getPhoneInputError();
 
         Assertions.assertEquals(expected,actual);
 
@@ -95,7 +91,6 @@ public class PhoneValidationTest {
 
 
         CardDeliveryPage deliveryPage = new CardDeliveryPage(BASE_URL);
-        ErrorMessages errorMessages = new ErrorMessages();
 
         deliveryPage.setCity(CITY);
         deliveryPage.addDaysToTheCurrentDate(7);
@@ -105,9 +100,7 @@ public class PhoneValidationTest {
         deliveryPage.clickOnAcceptButton();
 
         String expected = "Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.";
-        String actual = errorMessages.getPhoneInputError()
-                .shouldBe(Condition.visible)
-                .text();
+        String actual = deliveryPage.getPhoneInputError();
 
         Assertions.assertEquals(expected,actual);
 

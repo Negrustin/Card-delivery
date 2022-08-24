@@ -1,6 +1,10 @@
+package ru.netology.test;
+
 import com.codeborne.selenide.Condition;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import ru.netology.page.*;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -19,7 +23,7 @@ public class CityValidationTest {
     @Test
     public void emptyCity(){
         CardDeliveryPage deliveryPage = new CardDeliveryPage(BASE_URL);
-        ErrorMessages error = new ErrorMessages();
+
         deliveryPage.setCity(EMPTY_VALUE);
         deliveryPage.addDaysToTheCurrentDate(7);
         deliveryPage.setName("Сергей Суриков");
@@ -28,9 +32,7 @@ public class CityValidationTest {
         deliveryPage.clickOnAcceptButton();
 
         String expected = "Поле обязательно для заполнения";
-        String actual = error.getCityInputError()
-                .shouldBe(Condition.visible)
-                .text();
+        String actual = deliveryPage.getCityInputError();
 
         Assertions.assertEquals(expected, actual);
     }
@@ -38,7 +40,7 @@ public class CityValidationTest {
     @Test
     public void notCyrillicValue(){
         CardDeliveryPage deliveryPage = new CardDeliveryPage(BASE_URL);
-        ErrorMessages error = new ErrorMessages();
+
         deliveryPage.setCity(NOT_CYRILLIC_CITY );
         deliveryPage.addDaysToTheCurrentDate(7);
         deliveryPage.setName("Сергей Суриков");
@@ -47,9 +49,7 @@ public class CityValidationTest {
         deliveryPage.clickOnAcceptButton();
 
         String expected = "Доставка в выбранный город недоступна";
-        String actual = error.getCityInputError()
-                .shouldBe(Condition.visible)
-                .text();
+        String actual = deliveryPage.getCityInputError();
 
         Assertions.assertEquals(expected, actual);
     }
@@ -57,7 +57,7 @@ public class CityValidationTest {
     @Test
     public void nonExistentCity(){
         CardDeliveryPage deliveryPage = new CardDeliveryPage(BASE_URL);
-        ErrorMessages error = new ErrorMessages();
+
         deliveryPage.setCity(NON_EXISTENT_CITY);
         deliveryPage.addDaysToTheCurrentDate(7);
         deliveryPage.setName("Сергей Суриков");
@@ -66,9 +66,7 @@ public class CityValidationTest {
         deliveryPage.clickOnAcceptButton();
 
         String expected = "Доставка в выбранный город недоступна";
-        String actual = error.getCityInputError()
-                .shouldBe(Condition.visible)
-                .text();
+        String actual = deliveryPage.getCityInputError();
         Assertions.assertEquals(expected, actual);
     }
 
