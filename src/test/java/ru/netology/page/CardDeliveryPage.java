@@ -1,6 +1,5 @@
 package ru.netology.page;
 
-import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
@@ -25,7 +24,6 @@ public class CardDeliveryPage {
     private final SelenideElement PhoneInputError = $x("//span[@data-test-id = 'phone']/span/span[@class = 'input__sub']");
     private final SelenideElement successWindow = $x("//*[@data-test-id = 'notification']");
     private final SelenideElement notCheckBoxError = $x("//div/label[@data-test-id ='agreement' and //div/label[contains(@class, 'input_invalid')]]");
-
 
     private LocalDate date = LocalDate.now();
     private DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd.MM.yyyy");
@@ -110,7 +108,13 @@ public class CardDeliveryPage {
                 .setValue(city);
         $$x("//span[contains(@class, 'menu-item__control')]").findBy(Condition.matchText("^(?iu)" + city + "+.*")).click();
 
+    }
+    public String getValueFromCityInput(){
+        return cityInput.getValue();
+    }
 
+    public String getValueFromDateInput(){
+        return dateInput.getValue();
     }
 
 }

@@ -16,24 +16,30 @@ public class DynamicElementsTest {
 
     private static final String BASE_URL = "http://localhost:9999";
     private static final String CITY = "Москва";
-    private static final String NAME = "Иванов Иван";
-    private static final String PHONE = "+71234567890";
+
     private static final String PART_OF_THE_CITY = "мо";
 
     @Test
     public void selectCityFromDropDownList() {
         CardDeliveryPage deliveryPage = new CardDeliveryPage(BASE_URL);
+        deliveryPage.selectCityFromDropDownList(PART_OF_THE_CITY);
+
+        String expected = CITY;
+        String  actual = deliveryPage.getValueFromCityInput();
+
+        Assertions.assertEquals(expected,actual);
+    }
+    @Test
+    public void selectDateFromCalendar(){
+        CardDeliveryPage deliveryPage = new CardDeliveryPage(BASE_URL);
         CalendarInterface calendarInterface = new CalendarInterface();
 
-        deliveryPage.selectCityFromDropDownList(PART_OF_THE_CITY);
+        deliveryPage.setCity(CITY);
         calendarInterface.daysAdd(7);
-        deliveryPage.setName(NAME);
-        deliveryPage.setPhone(PHONE);
-        deliveryPage.clickOnCheckbox();
-        deliveryPage.clickOnAcceptButton();
 
-        boolean expected = true;
-        boolean  actual = deliveryPage.isASuccess("Встреча успешно забронирована на " + dateString);
+
+        String expected = dateString;
+        String actual = deliveryPage.getValueFromDateInput();
 
         Assertions.assertEquals(expected,actual);
     }
