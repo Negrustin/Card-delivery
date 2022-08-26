@@ -51,11 +51,9 @@ public void  setNameUnicodeCyrillicExtension(){
     deliveryPage.clickOnCheckbox();
     deliveryPage.clickOnAcceptButton();
 
-    boolean expected = true;
-    boolean actual = deliveryPage.isASuccess("Встреча успешно забронирована на " + dateString);
+    deliveryPage.isASuccess("Встреча успешно забронирована на " + dateString);
 
 
-    Assertions.assertEquals(expected, actual);
 
 }
 

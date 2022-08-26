@@ -35,11 +35,7 @@ public class HappyPathTest {
         deliveryPage.clickOnAcceptButton();
 
 
-        boolean expected = true;
-        boolean  actual = deliveryPage.isASuccess("Встреча успешно забронирована на " + dateString);
-
-        Assertions.assertEquals(actual,expected);
-
+      deliveryPage.isASuccess("Встреча успешно забронирована на " + dateString);
 
     }
 

@@ -31,7 +31,7 @@ public class CheckBoxTest {
         deliveryPage.clickOnAcceptButton();
 
 
-        Assertions.assertTrue(deliveryPage.checkBoxError());
+        deliveryPage.checkBoxError();
 
 
     }

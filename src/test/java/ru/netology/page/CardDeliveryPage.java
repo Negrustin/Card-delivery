@@ -90,30 +90,30 @@ public class CardDeliveryPage {
                 .text();
     }
 
-    public boolean isASuccess(String msg) {
-        return successWindow
+    public void isASuccess(String msg) {
+        successWindow
                 .shouldBe(Condition.visible, Duration.ofSeconds(15))
-                .shouldHave(Condition.text(msg))
-                .exists();
+                .shouldHave(Condition.text(msg));
     }
 
-    public boolean checkBoxError() {
-        return notCheckBoxError
-                .shouldBe(Condition.visible)
-                .exists();
+    public void checkBoxError() {
+
+        notCheckBoxError
+                .shouldBe(Condition.visible);
     }
 
-    public void selectCityFromDropDownList(String city){
+    public void selectCityFromDropDownList(String city) {
         cityInput
                 .setValue(city);
         $$x("//span[contains(@class, 'menu-item__control')]").findBy(Condition.matchText("^(?iu)" + city + "+.*")).click();
 
     }
-    public String getValueFromCityInput(){
+
+    public String getValueFromCityInput() {
         return cityInput.getValue();
     }
 
-    public String getValueFromDateInput(){
+    public String getValueFromDateInput() {
         return dateInput.getValue();
     }
 

@@ -18,6 +18,8 @@ public class DynamicElementsTest {
     private static final String CITY = "Москва";
 
     private static final String PART_OF_THE_CITY = "мо";
+    private static final String NAME = "Иванов Иван";
+    private static final String PHONE = "+71234567890";
 
     @Test
     public void selectCityFromDropDownList() {
@@ -36,12 +38,13 @@ public class DynamicElementsTest {
 
         deliveryPage.setCity(CITY);
         calendarInterface.daysAdd(7);
+        deliveryPage.setName(NAME);
+        deliveryPage.setPhone(PHONE);
+        deliveryPage.clickOnCheckbox();
+        deliveryPage.clickOnAcceptButton();
 
 
-        String expected = dateString;
-        String actual = deliveryPage.getValueFromDateInput();
-
-        Assertions.assertEquals(expected,actual);
+        deliveryPage.isASuccess("Встреча успешно забронирована на " + dateString);
     }
 }
 
