@@ -21,18 +21,9 @@ public class DynamicElementsTest {
     private static final String NAME = "Иванов Иван";
     private static final String PHONE = "+71234567890";
 
-    @Test
-    public void selectCityFromDropDownList() {
-        CardDeliveryPage deliveryPage = new CardDeliveryPage(BASE_URL);
-        deliveryPage.selectCityFromDropDownList(PART_OF_THE_CITY);
 
-        String expected = CITY;
-        String  actual = deliveryPage.getValueFromCityInput();
-
-        Assertions.assertEquals(expected,actual);
-    }
     @Test
-    public void selectDateFromCalendar(){
+    public void SetDataWithDynamicgiElements(){
         CardDeliveryPage deliveryPage = new CardDeliveryPage(BASE_URL);
         CalendarInterface calendarInterface = new CalendarInterface();
 
