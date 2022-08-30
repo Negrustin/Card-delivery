@@ -3,6 +3,7 @@ package ru.netology.page;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.Keys;
 
 import java.time.Duration;
@@ -27,7 +28,6 @@ public class CardDeliveryPage {
 
     private LocalDate date = LocalDate.now();
     private DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-//    String dateString = date.plusDays(7).format(formatters).toString();
 
     public CardDeliveryPage(String url) {
         Selenide.open(url);
@@ -113,9 +113,9 @@ public class CardDeliveryPage {
         return cityInput.getValue();
     }
 
-    public String getValueFromDateInput() {
-        return dateInput.getValue();
-    }
+public void isTheCityEnteredCorrectly(String city){
+    Assertions.assertTrue(getValueFromCityInput().contains(city));
 
+}
 }
 

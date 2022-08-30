@@ -1,41 +1,47 @@
 package ru.netology.page;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.codeborne.selenide.Selenide.*;
 
 public class CalendarInterface {
 
-    private static ElementsCollection monthElement = $$x("//td[text() != '']");
-    private static final SelenideElement day = $x("//td[contains(@class, 'today')]");
+    private final ElementsCollection days = $$x("//*[@data-day]");
     private static final SelenideElement dateInput = $x("//*[@data-test-id = 'date']//input");
     private static final SelenideElement nextMonthButton = $x("//div[@data-step = '1']");
-    private LocalDate date = LocalDate.now();
 
-    public void daysAdd(int dayPlus) {
-        dateInput.click();
-        int monthDaysCount = monthElement.size();
-        int todayDay = Integer.parseInt(day.text());
-        int daysLast = dayPlus - (monthDaysCount - todayDay);
-        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd");
-        int dateInt = Integer.parseInt(date.plusDays(dayPlus).format(formatters));
 
-        if (todayDay + dayPlus <= monthDaysCount) {
-            monthElement.get(todayDay + dayPlus - 1).click();
-        }else{
-            nextMonthButton.click();
-            monthDaysCount = monthElement.size();
-            while (daysLast > monthDaysCount){
-                monthDaysCount = monthElement.size();
-                nextMonthButton.click();
-                monthDaysCount = monthElement.size();
-                daysLast = daysLast - monthDaysCount;
-            }
-            monthElement.get(dateInt-1).click();
+
+    public void selectDateDaysAdd(int plusDays) {
+
+        LocalDateTime dateTime = LocalDate.now().plusDays(plusDays).atTime(LocalTime.MIN);
+        ZonedDateTime zonedDateTime = ZonedDateTime.of(dateTime, ZoneId.systemDefault());
+        String millis = Long.toString(zonedDateTime.toInstant().toEpochMilli());
+
+        List<String> milliSeconds = new ArrayList<>();
+        List<String> tmp = new ArrayList<>();
+
+        for (SelenideElement element : days) {
+            milliSeconds.add(element.getAttribute("data-day"));
         }
+        dateInput.click();
+        for(int i = 0; !milliSeconds.contains(millis); i++) {
+            nextMonthButton.click();
+            for (SelenideElement element : days) {
+                tmp.add(element.getAttribute("data-day"));
+                milliSeconds = tmp;
+            }
+        }
+            days.findBy(Condition.attribute("data-day", millis)).click();
+
     }
+
 }
+
+

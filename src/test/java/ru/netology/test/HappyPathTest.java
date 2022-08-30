@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import ru.netology.page.*;
 
 
-import java.time.LocalDate;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 
 
@@ -23,6 +23,12 @@ public class HappyPathTest {
     private static final String PHONE = "+71234567890";
 
 
+
+
+
+
+
+
     @Test
     void HappyPathTest() {
         CardDeliveryPage deliveryPage = new CardDeliveryPage(BASE_URL);
@@ -33,7 +39,7 @@ public class HappyPathTest {
         deliveryPage.setPhone(PHONE);
         deliveryPage.clickOnCheckbox();
         deliveryPage.clickOnAcceptButton();
-
+        int x =0;
 
       deliveryPage.isASuccess("Встреча успешно забронирована на " + dateString);
 
